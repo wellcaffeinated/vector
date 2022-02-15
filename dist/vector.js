@@ -1,5 +1,5 @@
 /**
- * vector 0.0.1
+ * vector 0.0.2
  * @license GPL-3.0
  * Copyright 2022-present Jasper Palfree
  */
@@ -276,15 +276,24 @@
     };
 
     _proto.projectTo = function projectTo(vector) {
+      var m = this.dot(vector);
+      return this.copy(vector).setNorm(m);
+    };
+
+    _proto.projection = function projection(vector) {
       var other = vector.clone().normalize();
       return other.multiply(this.dot(other));
+    };
+
+    _proto.projectToClamped = function projectToClamped(vector) {
+      return this.projectTo(vector).clampNormUpper(vector.norm());
     };
 
     _proto.projectionScalar = function projectionScalar(vector) {
       return this.dot(vector) / vector.norm();
     };
 
-    _proto.clampedProj = function clampedProj(vector) {
+    _proto.projectionClamped = function projectionClamped(vector) {
       var n = vector.norm();
       var other = vector.clone().normalize();
       return other.multiply(Math.min(n, Math.max(0, this.dot(other))));
@@ -531,7 +540,7 @@
           _ref2$withComponents = _ref2.withComponents,
           withComponents = _ref2$withComponents === void 0 ? false : _ref2$withComponents,
           _ref2$color = _ref2.color,
-          color = _ref2$color === void 0 ? 'white' : _ref2$color,
+          color = _ref2$color === void 0 ? 'grey' : _ref2$color,
           _ref2$xcolor = _ref2.xcolor,
           xcolor = _ref2$xcolor === void 0 ? 'tomato' : _ref2$xcolor,
           _ref2$ycolor = _ref2.ycolor,

@@ -236,16 +236,26 @@ class Vector {
     return this.x * vector.y - this.y * vector.x
   }
 
-  projectTo(vector) {
+  projectTo(vector){
+    const m = this.dot(vector)
+    return this.copy(vector).setNorm(m)
+  }
+
+  projection(vector) {
     const other = vector.clone().normalize()
     return other.multiply(this.dot(other))
+  }
+
+  projectToClamped(vector){
+    return this.projectTo(vector)
+      .clampNormUpper(vector.norm())
   }
 
   projectionScalar(vector) {
     return this.dot(vector) / vector.norm()
   }
 
-  clampedProj(vector) {
+  projectionClamped(vector) {
     const n = vector.norm()
     const other = vector.clone().normalize()
     return other.multiply(Math.min(n, Math.max(0, this.dot(other))))
