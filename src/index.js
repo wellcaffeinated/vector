@@ -396,7 +396,7 @@ class Vector {
       offset = null,
       scale = 1,
       withComponents = false,
-      color = 'white',
+      color = 'grey',
       xcolor = 'tomato',
       ycolor = 'gold'
     } = {}
